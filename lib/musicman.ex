@@ -18,7 +18,7 @@ defmodule Musicman.API do
   def make_request(method, params \\ []) do
     body = %{jsonrpc: "2.0", id: 1, method: "core.playback.#{method}", params: params}
 
-    case HTTPoison.post('http://musicbox.local/mopidy/rpc', Poison.encode!(body)) do
+    case HTTPoison.post('http://musicbox.local:6680/mopidy/rpc', Poison.encode!(body)) do
       {:ok, response} ->
         Poison.decode!(response.body)["result"]
       {:error, _} ->
